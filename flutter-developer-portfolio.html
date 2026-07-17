@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ritesh Bishnoi — Flutter Developer | Full Stack Mobile Developer</title>
+<meta name="description" content="Portfolio of Ritesh Bishnoi, Flutter developer and full stack mobile developer building cross-platform mobile apps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0b1120;
+    --bg-soft: #0e1626;
+    --surface: #121b2e;
+    --surface-2: #17223a;
+    --border: #243149;
+    --text: #e8edf5;
+    --text-dim: #8fa1bf;
+    --text-faint: #5b6c8a;
+    --blue: #4c9eeb;
+    --blue-dim: #2c5d8f;
+    --cyan: #38e1c6;
+    --amber: #ffb020;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --radius: 10px;
+    --max-w: 1120px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  body{
+    margin: 0;
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse 60% 40% at 15% 0%, rgba(76,158,235,0.10), transparent 60%),
+      radial-gradient(ellipse 50% 35% at 100% 10%, rgba(56,225,198,0.06), transparent 60%);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: inherit; }
+  img{ max-width: 100%; display: block; }
+
+  ::selection{ background: rgba(76,158,235,0.35); color: #fff; }
+
+  :focus-visible{
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* ---------- SPLASH SCREEN ---------- */
+  body.locked{ overflow: hidden; height: 100vh; }
+
+  #splash{
+    position: fixed; inset: 0; z-index: 999;
+    background: var(--bg);
+    background-image: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(76,158,235,0.12), transparent 70%);
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+  #splash.hide{ opacity: 0; visibility: hidden; pointer-events: none; }
+
+  .splash-inner{ width: min(440px, 86vw); font-family: var(--font-mono); }
+
+  .splash-term{ margin-bottom: 30px; min-height: 100px; }
+  .splash-line{
+    font-size: 0.82rem; color: var(--text-faint); opacity: 0; white-space: nowrap; overflow: hidden;
+    animation: lineIn 0.4s ease forwards; animation-delay: var(--d);
+  }
+  .splash-line .ok{ color: var(--cyan); }
+  @keyframes lineIn{ to{ opacity: 1; } }
+
+  .splash-name-row{ display: flex; align-items: baseline; gap: 10px; }
+  .splash-caret{
+    display: inline-block; width: 3px; height: clamp(1.8rem,6vw,2.6rem);
+    background: var(--cyan); opacity: 0;
+    animation: caretShow 0.2s ease forwards, blink 0.9s step-end infinite;
+    animation-delay: 1.45s, 1.45s;
+  }
+  @keyframes caretShow{ to{ opacity: 1; } }
+  @keyframes blink{ 50%{ opacity: 0; } }
+
+  .splash-name{
+    font-family: var(--font-display); font-size: clamp(1.8rem,6vw,2.6rem); font-weight: 700;
+    opacity: 0; transform: translateY(10px);
+    animation: nameIn 0.6s ease forwards; animation-delay: 1.5s;
+    background: linear-gradient(92deg, var(--blue), var(--cyan));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  @keyframes nameIn{ to{ opacity: 1; transform: translateY(0); } }
+
+  .splash-role{
+    font-size: 0.85rem; color: var(--text-faint); margin-top: 6px;
+    opacity: 0; animation: nameIn 0.6s ease forwards; animation-delay: 1.7s;
+  }
+
+  .splash-bar{ margin-top: 26px; height: 3px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .splash-bar-fill{
+    height: 100%; width: 0%; background: linear-gradient(92deg,var(--blue),var(--cyan));
+    animation: barFill 2.3s ease forwards; animation-delay: 0.15s;
+  }
+  @keyframes barFill{ to{ width: 100%; } }
+
+  .splash-pct{ margin-top: 10px; font-size: 0.72rem; color: var(--text-faint); }
+
+  @media (prefers-reduced-motion: reduce){
+    .splash-line, .splash-name, .splash-role, .splash-caret{ animation: none !important; opacity: 1 !important; transform: none !important; }
+    .splash-bar-fill{ animation: none !important; width: 100% !important; }
+  }
+
+  .wrap{ max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+  .eyebrow{
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--cyan);
+    letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .eyebrow::before{ content: '//'; color: var(--text-faint); }
+
+  h1,h2,h3{ font-family: var(--font-display); font-weight: 600; margin: 0; color: #fff; }
+
+  /* ---------- NAV ---------- */
+  header.site-nav{
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(11,17,32,0.82);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner{
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px;
+  }
+  .brand{
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--text);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .brand .dot{ width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+  .brand b{ color: var(--blue); font-weight: 600; }
+
+  .crumbs{
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--text-faint);
+    display: none;
+    gap: 6px;
+    align-items: center;
+  }
+  .crumbs a{ color: var(--text-dim); text-decoration: none; padding: 4px 2px; }
+  .crumbs a:hover{ color: var(--cyan); }
+  .crumbs span{ color: var(--text-faint); }
+
+  @media (min-width: 760px){ .crumbs{ display: flex; } }
+
+  .nav-cta{
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--bg);
+    background: var(--cyan);
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .nav-cta:hover{ background: #5aead2; }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding: 76px 0 60px; }
+  .hero-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  @media (min-width: 940px){
+    .hero-grid{ grid-template-columns: 1.05fr 0.95fr; gap: 40px; }
+  }
+
+  .hero-copy h1{
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+  }
+  .hero-copy h1 .role{
+    display: block;
+    background: linear-gradient(92deg, var(--blue), var(--cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-top: 6px;
+  }
+  .hero-copy p.lede{
+    margin: 22px 0 30px;
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    max-width: 46ch;
+  }
+  .hero-actions{ display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn{
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid transparent;
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
+  .btn:hover{ transform: translateY(-2px); }
+  .btn-primary{ background: var(--blue); color: #05101f; font-weight: 600; }
+  .btn-primary:hover{ background: #63aef0; }
+  .btn-outline{ border-color: var(--border); color: var(--text); background: transparent; }
+  .btn-outline:hover{ border-color: var(--cyan); color: var(--cyan); }
+
+  .hero-meta{
+    margin-top: 34px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-faint);
+    display: flex; gap: 18px; flex-wrap: wrap;
+  }
+  .hero-meta b{ color: var(--text-dim); font-weight: 500; }
+
+  /* ---------- WIDGET TREE (signature element) ---------- */
+  .tree-card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 22px 26px;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,0.6);
+  }
+  .tree-card .tree-head{
+    display: flex; align-items: center; gap: 8px;
+    padding-bottom: 14px; margin-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-faint);
+  }
+  .tree-head .lamp{ width: 8px; height: 8px; border-radius: 50%; }
+  .lamp.r{ background: #ff6459; }
+  .lamp.y{ background: #ffbd44; }
+  .lamp.g{ background: #00ca4e; }
+  .tree-head .fname{ margin-left: 6px; }
+
+  .tree{ font-family: var(--font-mono); font-size: 0.86rem; }
+  .tnode{
+    position: relative;
+    padding: 7px 0 7px 26px;
+    opacity: 0;
+    transform: translateX(-6px);
+    animation: nodeIn 0.5s ease forwards;
+  }
+  .tnode::before{
+    content: '';
+    position: absolute; left: 6px; top: 0; bottom: 0;
+    border-left: 1px dashed var(--border);
+  }
+  .tnode.last::before{ bottom: 50%; }
+  .tnode::after{
+    content: '';
+    position: absolute; left: 6px; top: 16px;
+    width: 14px; border-top: 1px dashed var(--border);
+  }
+  .tnode.depth0::before, .tnode.depth0::after{ display: none; }
+  .tnode.depth1{ padding-left: 26px; }
+  .tnode.depth2{ padding-left: 52px; }
+  .tnode.depth2::before{ left: 32px; }
+  .tnode.depth2::after{ left: 32px; }
+  .tnode.depth3{ padding-left: 78px; }
+  .tnode.depth3::before{ left: 58px; }
+  .tnode.depth3::after{ left: 58px; }
+
+  .tag{ color: var(--blue); }
+  .tag2{ color: var(--cyan); }
+  .prop{ color: var(--text-faint); }
+  .str{ color: var(--amber); }
+
+  @keyframes nodeIn{
+    to{ opacity: 1; transform: translateX(0); }
+  }
+  .tnode:nth-child(1){ animation-delay: 0.05s; }
+  .tnode:nth-child(2){ animation-delay: 0.15s; }
+  .tnode:nth-child(3){ animation-delay: 0.25s; }
+  .tnode:nth-child(4){ animation-delay: 0.35s; }
+  .tnode:nth-child(5){ animation-delay: 0.45s; }
+  .tnode:nth-child(6){ animation-delay: 0.55s; }
+  .tnode:nth-child(7){ animation-delay: 0.65s; }
+  .tnode:nth-child(8){ animation-delay: 0.75s; }
+  .tnode:nth-child(9){ animation-delay: 0.85s; }
+
+  /* ---------- SECTION SCAFFOLDING ---------- */
+  section{ padding: 90px 0; }
+  .section-head{ max-width: 62ch; margin-bottom: 44px; }
+  .section-head h2{ font-size: clamp(1.6rem, 3.4vw, 2.2rem); letter-spacing: -0.01em; }
+  .section-head p{ color: var(--text-dim); margin-top: 12px; }
+
+  .reveal{
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.in{ opacity: 1; transform: translateY(0); }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display: grid; grid-template-columns: 1fr; gap: 40px;
+  }
+  @media (min-width: 860px){ .about-grid{ grid-template-columns: 1.2fr 1fr; } }
+  .about-copy p{ color: var(--text-dim); }
+  .about-copy p + p{ margin-top: 14px; }
+
+  .stat-grid{
+    display: grid; grid-template-columns: repeat(2,1fr); gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .stat{ background: var(--surface); padding: 22px; }
+  .stat .num{
+    font-family: var(--font-display); font-size: 1.9rem; color: var(--cyan); font-weight: 700;
+  }
+  .stat .label{ font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-faint); margin-top: 4px; }
+
+  /* ---------- SKILLS ---------- */
+  .skills-sig{
+    font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-faint);
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 20px; margin-bottom: 36px; overflow-x: auto;
+  }
+  .skills-sig .k{ color: var(--blue); }
+  .skills-sig .p{ color: var(--text-dim); }
+
+  .skill-groups{
+    display: grid; grid-template-columns: 1fr; gap: 22px;
+  }
+  @media (min-width: 700px){ .skill-groups{ grid-template-columns: 1fr 1fr; } }
+  .skill-card{
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px;
+  }
+  .skill-card h3{
+    font-size: 1rem; color: var(--text); display: flex; align-items: center; gap: 8px; margin-bottom: 14px;
+  }
+  .skill-card h3::before{ content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); }
+  .chip-row{ display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip{
+    font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-dim);
+    border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .skill-card:hover .chip{ }
+  .chip:hover{ border-color: var(--blue); color: var(--blue); }
+
+  /* ---------- PROJECTS ---------- */
+  .project-grid{ display: grid; grid-template-columns: 1fr; gap: 22px; }
+  @media (min-width: 780px){ .project-grid{ grid-template-columns: 1fr 1fr; } }
+
+  .project-card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px;
+    display: flex; flex-direction: column; gap: 14px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .project-card:hover{ border-color: var(--blue-dim); transform: translateY(-3px); }
+  .project-card .classdef{
+    font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-faint); word-break: break-word;
+  }
+  .project-card .classdef .kw{ color: var(--blue); }
+  .project-card .classdef .cls{ color: var(--cyan); }
+  .project-card h3{ font-size: 1.15rem; color: #fff; }
+  .project-card p.desc{ color: var(--text-dim); font-size: 0.95rem; margin: 0; }
+  .project-card .chip-row{ margin-top: 4px; }
+  .project-card .chip{ font-size: 0.72rem; padding: 5px 9px; }
+  .project-links{ display: flex; gap: 10px 18px; flex-wrap: wrap; margin-top: 6px; }
+  .project-links a{
+    font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-dim);
+    text-decoration: none; border-bottom: 1px dashed var(--text-faint);
+    padding-bottom: 2px;
+  }
+  .project-links a:hover{ color: var(--cyan); border-color: var(--cyan); }
+
+  /* ---------- EXPERIENCE / RELEASE NOTES ---------- */
+  .release{
+    border-left: 2px solid var(--border);
+    padding-left: 26px;
+    margin-left: 6px;
+    position: relative;
+  }
+  .release-item{ position: relative; padding-bottom: 42px; }
+  .release-item:last-child{ padding-bottom: 0; }
+  .release-item::before{
+    content: '';
+    position: absolute; left: -32px; top: 4px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--cyan);
+  }
+  .tag-version{
+    font-family: var(--font-mono); font-weight: 600; color: var(--amber); font-size: 0.95rem;
+  }
+  .release-role{ font-family: var(--font-display); font-size: 1.15rem; margin: 6px 0 2px; color: #fff; }
+  .release-meta{ font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-faint); margin-bottom: 14px; }
+  .changelog{ list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .changelog li{ color: var(--text-dim); font-size: 0.94rem; display: flex; gap: 10px; }
+  .changelog .flag{
+    font-family: var(--font-mono); font-size: 0.68rem; font-weight: 600;
+    padding: 2px 7px; border-radius: 4px; height: fit-content; margin-top: 3px; white-space: nowrap;
+  }
+  .flag.added{ background: rgba(56,225,198,0.14); color: var(--cyan); }
+  .flag.improved{ background: rgba(76,158,235,0.14); color: var(--blue); }
+  .flag.fixed{ background: rgba(255,176,32,0.14); color: var(--amber); }
+
+  /* ---------- CONTACT ---------- */
+  .contact-panel{
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    padding: 40px; display: grid; grid-template-columns: 1fr; gap: 36px;
+  }
+  @media (min-width: 860px){ .contact-panel{ grid-template-columns: 1fr 1fr; padding: 48px; } }
+
+  .ctor{ font-family: var(--font-mono); font-size: 0.92rem; color: var(--text-dim); line-height: 1.9; }
+  .ctor .kw{ color: var(--blue); }
+  .ctor .field{ color: var(--cyan); }
+  .ctor a{ color: var(--amber); text-decoration: none; border-bottom: 1px dashed rgba(255,176,32,0.4); }
+  .ctor a:hover{ border-color: var(--amber); }
+
+  form.contact-form{ display: grid; gap: 14px; }
+  .contact-form label{ font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-faint); display: block; margin-bottom: 6px; }
+  .contact-form input, .contact-form textarea{
+    width: 100%; background: var(--bg-soft); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 14px; color: var(--text); font-family: var(--font-body); font-size: 0.92rem;
+  }
+  .contact-form input:focus, .contact-form textarea:focus{ border-color: var(--blue); }
+  .contact-form textarea{ min-height: 100px; resize: vertical; }
+  .contact-form button{
+    justify-self: start;
+    font-family: var(--font-mono); font-weight: 600; font-size: 0.88rem;
+    background: var(--cyan); color: var(--bg); border: none; border-radius: 8px;
+    padding: 12px 22px; cursor: pointer; transition: background 0.15s ease;
+  }
+  .contact-form button:hover{ background: #5aead2; }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top: 1px solid var(--border);
+    padding: 32px 0;
+  }
+  .footer-inner{
+    display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-faint);
+  }
+  .footer-inner a{ color: var(--text-faint); text-decoration: none; }
+  .footer-inner a:hover{ color: var(--cyan); }
+  .footer-links{ display: flex; gap: 18px; }
+</style>
+</head>
+<body class="locked">
+
+<div id="splash">
+  <div class="splash-inner">
+    <div class="splash-term">
+      <div class="splash-line" style="--d:0.1s">$ flutter run</div>
+      <div class="splash-line" style="--d:0.5s">Launching lib/main.dart on Portfolio...</div>
+      <div class="splash-line" style="--d:0.9s">Running Gradle task 'assembleDebug'...</div>
+      <div class="splash-line" style="--d:1.3s">Syncing files to device... <span class="ok">done</span></div>
+    </div>
+    <div class="splash-name-row">
+      <span class="splash-name">Ritesh Bishnoi</span>
+      <span class="splash-caret" aria-hidden="true"></span>
+    </div>
+    <div class="splash-role">Flutter Developer | Full Stack Mobile Developer</div>
+    <div class="splash-bar" aria-hidden="true"><div class="splash-bar-fill"></div></div>
+    <div class="splash-pct">Building...</div>
+  </div>
+</div>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand"><span class="dot"></span>ritesh<b>.dart</b></a>
+    <nav class="crumbs" aria-label="Section navigation">
+      <a href="#about">about</a><span>/</span>
+      <a href="#skills">skills</a><span>/</span>
+      <a href="#projects">projects</a><span>/</span>
+      <a href="#experience">experience</a><span>/</span>
+      <a href="#contact">contact</a>
+    </nav>
+    <a class="nav-cta" href="#contact">flutter run →</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">lib/main.dart</span>
+        <h1>Ritesh Bishnoi<span class="role">Flutter Developer | Full Stack Mobile Developer</span></h1>
+        <p class="lede">Full Stack Mobile Developer focused on Flutter, Dart, and Node.js — building smooth, cross-platform apps for iOS and Android from a single codebase, backed by scalable APIs and an eye for the details that make every app feel native.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">View projects</a>
+          <a class="btn btn-outline" href="Ritesh-Bishnoi-Resume.pdf" download="Ritesh-Bishnoi-Resume.pdf">Download résumé</a>
+        </div>
+        <div class="hero-meta">
+          <span><b>4+ yrs</b> shipping Flutter</span>
+          <span><b>12</b> apps in production</span>
+          <span>Based in <b>Sri Ganganagar, India</b> · Open to relocation or remote</span>
+        </div>
+      </div>
+
+      <div class="tree-card" role="img" aria-label="Flutter widget tree showing the app's home screen structure">
+        <div class="tree-head">
+          <span class="lamp r"></span><span class="lamp y"></span><span class="lamp g"></span>
+          <span class="fname">widget_inspector</span>
+        </div>
+        <div class="tree">
+          <div class="tnode depth0"><span class="tag">MaterialApp</span></div>
+          <div class="tnode depth1"><span class="prop">home:</span> <span class="tag">Scaffold</span></div>
+          <div class="tnode depth2"><span class="prop">body:</span> <span class="tag">Column</span></div>
+          <div class="tnode depth3"><span class="tag2">Text</span>(<span class="str">'Ritesh Bishnoi'</span>)</div>
+          <div class="tnode depth3"><span class="tag2">Text</span>(<span class="str">'Flutter Developer'</span>)</div>
+          <div class="tnode depth3"><span class="tag">Row</span></div>
+          <div class="tnode depth3" style="padding-left:104px;"><span class="tag2">ElevatedButton</span>(<span class="str">'View projects'</span>)</div>
+          <div class="tnode depth3 last" style="padding-left:104px;"><span class="tag2">OutlinedButton</span>(<span class="str">'Download résumé'</span>)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="about-grid reveal">
+        <div class="about-copy">
+          <span class="eyebrow">about.dart</span>
+          <h2>Cross-platform by trade, native by habit</h2>
+          <p>For the past four years, I've been building software with Flutter at the center — creating cross-platform mobile applications that are responsive, intuitive, and built to last. I enjoy turning ideas into polished products through thoughtful architecture, Clean Architecture principles, clean code, and attention to the details that users notice every day.</p>
+          <p>My work spans both mobile and backend development, combining Flutter, Dart, and Node.js to build complete, scalable solutions. From designing maintainable application architecture and integrating REST APIs to optimizing performance and delivering reliable user experiences, I focus on building software that's easy to maintain and ready to grow.</p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat"><div class="num">9</div><div class="label">APPS SHIPPED</div></div>
+          <div class="stat"><div class="num">4+</div><div class="label">YEARS OF EXPERIENCE</div></div>
+          <div class="stat"><div class="num">6</div><div class="label">STORE RELEASES</div></div>
+          <div class="stat"><div class="num">7</div><div class="label">CLIENT PROJECTS DELIVERED</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">skills.dart</span>
+        <h2>What's under the hood</h2>
+        <p>The stack I reach for most, grouped the way I'd pass them into a constructor.</p>
+      </div>
+
+      <div class="skills-sig reveal">
+        <span class="k">class</span> Skills {<br>
+        &nbsp;&nbsp;<span class="p">required</span> this.languages, this.flutterMobile,<br>
+        &nbsp;&nbsp;<span class="p">required</span> this.architecture, this.stateManagement,<br>
+        &nbsp;&nbsp;this.backend, this.firebase, this.integrations, this.tools,<br>
+        }
+      </div>
+
+      <div class="skill-groups reveal">
+        <div class="skill-card">
+          <h3>Languages &amp; Web</h3>
+          <div class="chip-row">
+            <span class="chip">Dart</span><span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">C</span><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">XML</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Flutter &amp; Mobile</h3>
+          <div class="chip-row">
+            <span class="chip">Flutter</span><span class="chip">Android</span><span class="chip">iOS</span><span class="chip">Cross-Platform</span><span class="chip">Custom Widgets</span><span class="chip">Animations</span><span class="chip">Platform Channels</span><span class="chip">Slivers</span><span class="chip">Material Design</span><span class="chip">Adaptive Layouts</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Architecture &amp; Patterns</h3>
+          <div class="chip-row">
+            <span class="chip">Clean Architecture</span><span class="chip">MVVM</span><span class="chip">MVC</span><span class="chip">Repository Pattern</span><span class="chip">Dependency Injection</span><span class="chip">SOLID</span><span class="chip">OOP</span><span class="chip">Async Programming</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>State Management</h3>
+          <div class="chip-row">
+            <span class="chip">Bloc</span><span class="chip">Provider</span><span class="chip">GetX</span><span class="chip">Stacked</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Backend &amp; APIs</h3>
+          <div class="chip-row">
+            <span class="chip">Node.js</span><span class="chip">NestJS</span><span class="chip">Express.js</span><span class="chip">MongoDB</span><span class="chip">REST APIs</span><span class="chip">GraphQL</span><span class="chip">Dio</span><span class="chip">HTTP / JSON</span><span class="chip">JWT Auth</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Firebase &amp; Storage</h3>
+          <div class="chip-row">
+            <span class="chip">Firebase Auth</span><span class="chip">Cloud Firestore</span><span class="chip">FCM Push</span><span class="chip">Hive</span><span class="chip">SharedPreferences</span><span class="chip">Offline Caching</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Testing, Performance &amp; Integrations</h3>
+          <div class="chip-row">
+            <span class="chip">Unit Testing</span><span class="chip">Widget Testing</span><span class="chip">Debugging</span><span class="chip">Performance Optimization</span><span class="chip">RevenueCat</span><span class="chip">Payment Gateways</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Tools &amp; Workflow</h3>
+          <div class="chip-row">
+            <span class="chip">Git / GitHub / GitLab</span><span class="chip">Android Studio</span><span class="chip">Xcode</span><span class="chip">VS Code</span><span class="chip">Postman</span><span class="chip">Figma</span><span class="chip">Jira / Trello</span><span class="chip">Agile / Scrum</span><span class="chip">CI/CD</span><span class="chip">Play Store / App Store</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">projects.dart</span>
+        <h2>The full lineup</h2>
+        <p>Every app I've shipped — architecture, UI, and store release, end-to-end.</p>
+      </div>
+
+      <div class="project-grid reveal">
+
+        <article class="project-card">
+          <div class="classdef"><span class="kw">class</span> <span class="cls">VISTA</span> extends StatefulWidget</div>
+          <h3>VISTA — Workplace Wellbeing</h3>
+          <p class="desc">A mobile platform designed to improve employee wellbeing and engagement through real-time, workplace-specific data. Built for remote teams, it helps organizations foster a healthier, more connected, resilient workforce — delivering actionable insights based on employee behavior, mood, and work habits instead of generic wellness content.</p>
+          <div class="chip-row">
+            <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Bloc</span><span class="chip">Clean Architecture</span><span class="chip">Hive</span><span class="chip">Spike API</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="classdef"><span class="kw">class</span> <span class="cls">Qualifica</span> extends StatefulWidget</div>
+          <h3>Qualifica</h3>
+          <p class="desc">Enhances task and appointment management for the Qualifica Group, streamlining day-to-day scheduling and workflow tracking for the team.</p>
+          <div class="chip-row">
+            <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Stacked</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="classdef"><span class="kw">class</span> <span class="cls">SimpleRuns</span> extends StatefulWidget</div>
+          <h3>SimpleRuns</h3>
+          <p class="desc">Provides top-notch delivery tracking and load sheet management services to optimize freight operations for trucking and logistics teams.</p>
+          <div class="chip-row">
+            <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Node.js</span><span class="chip">Express.js</span><span class="chip">MongoDB</span>
+          </div>
+          <div class="project-links">
+            <a href="https://play.google.com/store/search?q=simpleruns&c=apps&hl=en_IN" target="_blank" rel="noopener">Navigator.push(PlayStore)</a>
+            <a href="https://apps.apple.com/pw/app/simpleruns/id6477793212" target="_blank" rel="noopener">Navigator.push(AppStore)</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="classdef"><span class="kw">class</span> <span class="cls">OkayReportDoctor</span> extends StatefulWidget</div>
+          <h3>OkayReport Doctor</h3>
+          <p class="desc">A smart, user-friendly app that simplifies medical practice for doctors — managing patient check-ups, creating detailed prescriptions, and printing them directly for patients. Keeps a comprehensive record of each patient's medical history, making follow-ups and ongoing care easier.</p>
+          <div class="chip-row">
+            <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Stacked</span>
+          </div>
+          <div class="project-links">
+            <a href="https://play.google.com/store/apps/details?id=com.doctor.okayreport&hl=en_IN" target="_blank" rel="noopener">Navigator.push(PlayStore)</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="classdef"><span class="kw">class</span> <span class="cls">OkayReportAssistant</span> extends StatefulWidget</div>
+          <h3>OkayReport Assistant</h3>
+          <p class="desc">A smart medical administration app built for efficient clinic management — lets assistants create and manage patient appointments for seamless doctor scheduling, plus upload and organize patient documents like X-rays and blood reports for quick access to important records.</p>
+          <div class="chip-row">
+            <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Stacked</span>
+          </div>
+          <div class="project-links">
+            <a href="https://play.google.com/store/apps/details?id=com.assistant.okayreport&hl=en_IN" target="_blank" rel="noopener">Navigator.push(PlayStore)</a>
+            <a href="https://apps.apple.com/pw/app/okayreport-assistant/id6741104928" target="_blank" rel="noopener">Navigator.push(AppStore)</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="classdef"><span class="kw">class</span> <span class="cls">OkayReportPatient</span> extends StatefulWidget</div>
+          <h3>OkayReport Patient</h3>
+          <p class="desc">A smart solution for electronically managing personal health records — prescriptions, medical bills, lab reports, X-rays, and insurance paperwork — all in one place on your phone, solving the hassle of organizing documents that healthcare facilities rarely provide digitally.</p>
+          <div class="chip-row">
+            <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Stacked</span>
+          </div>
+          <div class="project-links">
+            <a href="https://play.google.com/store/apps/details?id=com.okayreport&hl=en_IN" target="_blank" rel="noopener">Navigator.push(PlayStore)</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="classdef"><span class="kw">class</span> <span class="cls">LinkUpIdea</span> extends StatefulWidget</div>
+          <h3>LinkUp Idea</h3>
+          <p class="desc">A cross-platform app that connects people worldwide based on shared ideas, interests, and goals, helping them collaborate and turn concepts into real-world projects. Combines AI-powered conversations with real-time messaging, subscription plans, an in-app coin system for unlocking connections, and secure payment integration.</p>
+          <div class="chip-row">
+            <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Stacked</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="classdef"><span class="kw">class</span> <span class="cls">DragoLive</span> extends StatefulWidget</div>
+          <h3>Drago Live</h3>
+          <p class="desc">A free social media app that lets users share their life through live video and audio — watch others perform or chat about your day in real time. Built to bring people together from all over the world to build new friendships.</p>
+          <div class="chip-row">
+            <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Parse Server SDK</span><span class="chip">Parse Server</span><span class="chip">Node.js</span><span class="chip">Express.js</span><span class="chip">MongoDB</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="classdef"><span class="kw">class</span> <span class="cls">Mimiya</span> extends StatefulWidget</div>
+          <h3>Mimiya</h3>
+          <p class="desc">A role-based app that helps moms and pregnant women track their health progress, complete guided tasks, and share updates in a social hub built for community support.</p>
+          <div class="chip-row">
+            <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Firebase</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">CHANGELOG.md</span>
+        <h2>Career, versioned</h2>
+        <p>Each role as a release — because a career, like an app, ships in increments.</p>
+      </div>
+
+      <div class="release reveal">
+        <div class="release-item">
+          <div class="tag-version">v2.0.0</div>
+          <div class="release-role">Flutter &amp; Node.js Developer (Contract) — Geminate Solutions</div>
+          <div class="release-meta">2025 — 2026 · Remote</div>
+          <ul class="changelog">
+            <li><span class="flag added">Added</span> live-streaming improvements, post-stream reward claims with real-time balance updates, and refined user workflows across existing applications.</li>
+            <li><span class="flag added">Added</span> backend enhancements in Node.js, integrating the RevenueCat API for subscription management, in-app purchases, and scalable backend functionality.</li>
+            <li><span class="flag added">Added</span> Firebase services — Authentication, Cloud Firestore, Cloud Storage, and Cloud Messaging — for secure auth, cloud data management, media storage, and push notifications.</li>
+            <li><span class="flag improved">Improved</span> application quality by optimizing performance, refactoring existing modules, resolving production issues, enhancing navigation, and managing state with GetX — while collaborating with backend, product, and QA teams on smooth, production-ready releases.</li>
+          </ul>
+        </div>
+        <div class="release-item">
+          <div class="tag-version">v1.0.0</div>
+          <div class="release-role">Flutter Developer — PiZone Infotech</div>
+          <div class="release-meta">2022 — 2025 · Sri Ganganagar, India</div>
+          <ul class="changelog">
+            <li><span class="flag added">Added</span> new features across multiple Flutter applications — authentication, real-time messaging, subscriptions, payment integration, AI-powered features, and user profile management.</li>
+            <li><span class="flag improved">Improved</span> application architecture, performance, and maintainability using Clean Architecture, Stacked, Bloc, Hive, responsive UI, reusable components, and optimized API/database interactions.</li>
+            <li><span class="flag improved">Improved</span> delivery process by collaborating with cross-functional teams to estimate, design, develop, test, and release production-ready features, while mentoring junior developers and contributing to technical decisions.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">contact.dart</span>
+        <h2>Let's build something</h2>
+        <p>Open to full-time roles, contract work, and interesting apps that need a Flutter developer.</p>
+      </div>
+
+      <div class="contact-panel reveal">
+        <div class="ctor">
+          <span class="kw">ContactMe</span>({<br>
+          &nbsp;&nbsp;email: <a href="mailto:riteshbishnoi4@gmail.com">riteshbishnoi4@gmail.com</a>,<br>
+          &nbsp;&nbsp;github: <a href="https://github.com/ritesh-bishnoi" target="_blank" rel="noopener">github.com/ritesh-bishnoi</a>,<br>
+          &nbsp;&nbsp;linkedIn: <a href="https://www.linkedin.com/in/ritesh-bishnoi-dev/" target="_blank" rel="noopener">linkedin.com/in/ritesh-bishnoi-dev</a>,<br>
+          });
+        </div>
+
+        <form class="contact-form" action="mailto:riteshbishnoi4@gmail.com" method="post" enctype="text/plain">
+          <div>
+            <label for="name">your name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div>
+            <label for="email">your email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div>
+            <label for="message">message</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <button type="submit">Send message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>© 2026 Ritesh Bishnoi. Built with HTML, CSS &amp; a fondness for hot reload.</span>
+    <div class="footer-links">
+      <a href="https://github.com/ritesh-bishnoi" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/ritesh-bishnoi-dev/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:riteshbishnoi4@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Splash screen: lock scroll, then reveal the page once the boot sequence finishes
+  const splash = document.getElementById('splash');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const splashDuration = reducedMotion ? 300 : 2700;
+
+  function dismissSplash(){
+    splash.classList.add('hide');
+    document.body.classList.remove('locked');
+    splash.addEventListener('transitionend', () => splash.remove(), { once: true });
+  }
+
+  window.addEventListener('load', () => {
+    setTimeout(dismissSplash, splashDuration);
+  });
+  // Fallback in case 'load' never fires (e.g. slow assets) or fires before listener attaches
+  setTimeout(() => { if (document.body.classList.contains('locked')) dismissSplash(); }, splashDuration + 1500);
+
+  // Allow skipping the splash with a click or key press
+  splash.addEventListener('click', dismissSplash);
+  window.addEventListener('keydown', (e) => {
+    if (document.body.classList.contains('locked')) dismissSplash();
+  }, { once: true });
+
+  // Scroll-triggered reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Active nav crumb highlight
+  const sections = document.querySelectorAll('main section[id]');
+  const crumbLinks = document.querySelectorAll('.crumbs a');
+  const navIo = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        crumbLinks.forEach(link => {
+          link.style.color = link.getAttribute('href') === '#' + entry.target.id ? 'var(--cyan)' : '';
+        });
+      }
+    });
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+  sections.forEach(s => navIo.observe(s));
+</script>
+
+</body>
+</html>
