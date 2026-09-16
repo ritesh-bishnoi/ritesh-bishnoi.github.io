@@ -377,6 +377,77 @@
   .project-grid{ display: grid; grid-template-columns: 1fr; gap: 22px; }
   @media (min-width: 780px){ .project-grid{ grid-template-columns: 1fr 1fr; } }
 
+  .project-card.featured{
+    grid-column: 1 / -1;
+  }
+  .featured-badge{
+    font-family: var(--font-mono); font-size: 0.7rem; color: var(--cyan);
+    border: 1px solid rgba(56,225,198,0.3); background: rgba(56,225,198,0.08);
+    padding: 3px 9px; border-radius: 5px; width: fit-content; letter-spacing: 0.02em;
+  }
+  .status-note{
+    font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-faint);
+    margin-top: 8px;
+  }
+  .shot-gallery{
+    display: flex; gap: 14px; overflow-x: auto; padding: 6px 2px 14px;
+    scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
+  }
+  .shot-gallery::-webkit-scrollbar{ height: 6px; }
+  .shot-gallery::-webkit-scrollbar-thumb{ background: var(--border); border-radius: 3px; }
+  .shot-gallery figure{
+    margin: 0; flex: 0 0 auto; width: 140px; scroll-snap-align: start;
+  }
+  .shot-gallery img{
+    width: 100%; border-radius: 10px; border: 1px solid var(--border); display: block;
+    cursor: zoom-in; transition: border-color 0.15s ease;
+  }
+  .shot-gallery img:hover{ border-color: var(--cyan); }
+
+  .lightbox{
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(5,9,18,0.92);
+    display: none; align-items: center; justify-content: center;
+    padding: 40px 20px;
+  }
+  .lightbox.open{ display: flex; }
+  .lightbox img{
+    max-width: min(420px, 90vw); max-height: 85vh;
+    border-radius: 14px; border: 1px solid var(--border);
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,0.7);
+  }
+  .lightbox-close{
+    position: absolute; top: 20px; right: 24px;
+    font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-dim);
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 14px; cursor: pointer;
+  }
+  .lightbox-close:hover{ color: var(--cyan); border-color: var(--cyan); }
+  .lightbox-nav{
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: var(--surface); border: 1px solid var(--border); color: var(--text-dim);
+    width: 42px; height: 42px; border-radius: 50%; cursor: pointer;
+    font-family: var(--font-mono); font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
+  }
+  .lightbox-nav:hover{ color: var(--cyan); border-color: var(--cyan); }
+  .lightbox-prev{ left: 16px; }
+  .lightbox-next{ right: 16px; }
+  .lightbox-caption{
+    position: absolute; bottom: 24px; left: 0; right: 0; text-align: center;
+    font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-faint);
+  }
+  .shot-gallery figcaption{
+    font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-faint);
+    margin-top: 6px; text-align: center;
+  }
+  .case-study{ display: grid; gap: 14px; margin-top: 4px; }
+  @media (min-width: 700px){ .case-study{ grid-template-columns: 1fr 1fr 1fr; } }
+  .case-study-block h4{
+    font-family: var(--font-mono); font-size: 0.72rem; color: var(--cyan);
+    text-transform: uppercase; letter-spacing: 0.04em; margin: 0 0 6px;
+  }
+  .case-study-block p{ margin: 0; color: var(--text-dim); font-size: 0.9rem; }
+
   .project-card{
     background: var(--surface);
     border: 1px solid var(--border);
@@ -720,21 +791,53 @@
           </div>
         </article>
 
-        <article class="project-card">
+        <article class="project-card featured">
+          <span class="featured-badge">FEATURED CASE STUDY</span>
+          <p class="status-note">No longer publicly listed — screens shown below from development.</p>
           <div class="classdef"><span class="kw">class</span> <span class="cls">LinkUpIdea</span> extends StatefulWidget</div>
-          <h3>LinkUp Idea</h3>
-          <p class="desc">A cross-platform app that connects people worldwide based on shared ideas, interests, and goals, helping them collaborate and turn concepts into real-world projects. Combines AI-powered conversations with real-time messaging, subscription plans, an in-app coin system for unlocking connections, and secure payment integration.</p>
+          <h3>LinkUp Idea — AI-Powered Social Collaboration App</h3>
+          <p class="desc">Connects people worldwide based on shared ideas, interests, and goals — combining AI-powered conversations with real-time messaging to help users turn concepts into real collaborations, on both Android and iOS.</p>
           <div class="chip-row">
-            <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Stacked</span>
+            <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Stacked</span><span class="chip">Subscriptions</span><span class="chip">Payments</span>
+          </div>
+
+          <div class="shot-gallery" role="list" aria-label="LinkUp Idea app screens">
+            <figure role="listitem"><img class="lightbox-trigger" data-idx="0" src="linkup-login.jpg" alt="LinkUp Idea login screen with LinkedIn sign-in"><figcaption>Login</figcaption></figure>
+            <figure role="listitem"><img class="lightbox-trigger" data-idx="1" src="linkup-ai-chat.jpg" alt="LinkUp Idea AI-powered idea matching chat screen"><figcaption>AI Chat</figcaption></figure>
+            <figure role="listitem"><img class="lightbox-trigger" data-idx="2" src="linkup-dashboard.jpg" alt="LinkUp Idea dashboard showing submitted ideas"><figcaption>Dashboard</figcaption></figure>
+            <figure role="listitem"><img class="lightbox-trigger" data-idx="3" src="linkup-matches.jpg" alt="LinkUp Idea matches screen with match percentages"><figcaption>Matches</figcaption></figure>
+            <figure role="listitem"><img class="lightbox-trigger" data-idx="4" src="linkup-profile.jpg" alt="LinkUp Idea user profile screen"><figcaption>Profile</figcaption></figure>
+            <figure role="listitem"><img class="lightbox-trigger" data-idx="5" src="linkup-notifications.jpg" alt="LinkUp Idea notifications screen"><figcaption>Notifications</figcaption></figure>
+            <figure role="listitem"><img class="lightbox-trigger" data-idx="6" src="linkup-settings.jpg" alt="LinkUp Idea settings screen"><figcaption>Settings</figcaption></figure>
+            <figure role="listitem"><img class="lightbox-trigger" data-idx="7" src="linkup-membership-plans.jpg" alt="LinkUp Idea membership plans screen with pricing tiers"><figcaption>Membership</figcaption></figure>
+          </div>
+
+          <div class="case-study">
+            <div class="case-study-block">
+              <h4>Role</h4>
+              <p>Sole Flutter developer on a cross-functional team (design + backend + mobile). Built the entire mobile app from scratch through to store deployment.</p>
+            </div>
+            <div class="case-study-block">
+              <h4>Challenge</h4>
+              <p>Built and submitted the complete mobile app — from implementation through testing and store submission for both the Play Store and App Store — within a 15-day deadline set by leadership.</p>
+            </div>
+            <div class="case-study-block">
+              <h4>Built With</h4>
+              <p>Flutter, Stacked architecture, subscription plans, an in-app coin system, secure payment integration, and real-time messaging.</p>
+            </div>
           </div>
         </article>
 
         <article class="project-card">
           <div class="classdef"><span class="kw">class</span> <span class="cls">DragoLive</span> extends StatefulWidget</div>
-          <h3>Drago Live</h3>
-          <p class="desc">A free social media app that lets users share their life through live video and audio — watch others perform or chat about your day in real time. Built to bring people together from all over the world to build new friendships.</p>
+          <h3>Drago Live <span style="color: var(--text-faint); font-weight: 500;">(now Zuzu Live)</span></h3>
+          <p class="desc">A free social media app that lets users share their life through live video and audio — watch others perform or chat about your day in real time. Built to bring people together from all over the world to build new friendships. Later rebranded and relaunched by the client as Zuzu Live.</p>
           <div class="chip-row">
             <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Parse Server SDK</span><span class="chip">Parse Server</span><span class="chip">Node.js</span><span class="chip">Express.js</span><span class="chip">MongoDB</span>
+          </div>
+          <div class="project-links">
+            <a href="https://play.google.com/store/apps/details?id=com.zuzulive.app&hl=en_IN" target="_blank" rel="noopener">Navigator.push(PlayStore)</a>
+            <a href="https://apps.apple.com/in/app/zuzu-live/id6747131838" target="_blank" rel="noopener">Navigator.push(AppStore)</a>
           </div>
         </article>
 
@@ -825,6 +928,14 @@
 
 </main>
 
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot preview">
+  <button class="lightbox-close" id="lightboxClose">Close ✕</button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous screenshot">‹</button>
+  <img id="lightboxImg" src="" alt="">
+  <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next screenshot">›</button>
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
 <footer>
   <div class="wrap footer-inner">
     <span>© 2026 Ritesh Bishnoi. Built with HTML, CSS &amp; a fondness for hot reload.</span>
@@ -898,6 +1009,43 @@
     });
   }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
   sections.forEach(s => navIo.observe(s));
+
+  // Screenshot lightbox
+  const triggers = Array.from(document.querySelectorAll('.lightbox-trigger'));
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  let currentIdx = 0;
+
+  function openLightbox(idx){
+    currentIdx = idx;
+    const img = triggers[currentIdx];
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightboxCaption.textContent = img.closest('figure').querySelector('figcaption').textContent + '  ·  ' + (currentIdx + 1) + ' / ' + triggers.length;
+    lightbox.classList.add('open');
+    document.body.classList.add('locked');
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    document.body.classList.remove('locked');
+  }
+  function showNext(){ openLightbox((currentIdx + 1) % triggers.length); }
+  function showPrev(){ openLightbox((currentIdx - 1 + triggers.length) % triggers.length); }
+
+  triggers.forEach((img, idx) => {
+    img.addEventListener('click', () => openLightbox(idx));
+  });
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  document.getElementById('lightboxNext').addEventListener('click', showNext);
+  document.getElementById('lightboxPrev').addEventListener('click', showPrev);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  window.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') showNext();
+    if (e.key === 'ArrowLeft') showPrev();
+  });
 </script>
 
 </body>
