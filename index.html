@@ -722,12 +722,40 @@
 
       <div class="project-grid reveal">
 
-        <article class="project-card">
+        <article class="project-card featured">
+          <span class="featured-badge">FEATURED CASE STUDY</span>
           <div class="classdef"><span class="kw">class</span> <span class="cls">VISTA</span> extends StatefulWidget</div>
-          <h3>VISTA — Workplace Wellbeing</h3>
+          <h3>VISTA — Workplace Wellbeing Platform</h3>
           <p class="desc">A mobile platform designed to improve employee wellbeing and engagement through real-time, workplace-specific data. Built for remote teams, it helps organizations foster a healthier, more connected, resilient workforce — delivering actionable insights based on employee behavior, mood, and work habits instead of generic wellness content.</p>
           <div class="chip-row">
             <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Bloc</span><span class="chip">Clean Architecture</span><span class="chip">Hive</span><span class="chip">Spike API</span>
+          </div>
+
+          <div class="shot-gallery" role="list" aria-label="VISTA app screens">
+            <figure role="listitem"><img class="lightbox-trigger" data-idx="0" data-group="vista" src="vista-login.jpg" alt="VISTA login screen with unique code entry"><figcaption>Login</figcaption></figure>
+            <figure role="listitem"><img class="lightbox-trigger" data-idx="1" data-group="vista" src="vista-spike-connect.jpg" alt="VISTA Get Connected screen with Spike API toggle"><figcaption>Spike Connect</figcaption></figure>
+            <figure role="listitem"><img class="lightbox-trigger" data-idx="2" data-group="vista" src="vista-wearable-devices.jpg" alt="VISTA wearable device selection screen with Fitbit, Oura, Google Fit, Garmin, Polar, Strava"><figcaption>Wearables</figcaption></figure>
+            <figure role="listitem"><img class="lightbox-trigger" data-idx="3" data-group="vista" src="vista-home.jpg" alt="VISTA home screen with daily prompt and check-in"><figcaption>Home</figcaption></figure>
+            <figure role="listitem"><img class="lightbox-trigger" data-idx="4" data-group="vista" src="vista-daily-checkin.jpg" alt="VISTA daily check-in mood slider screen"><figcaption>Daily Check-in</figcaption></figure>
+            <figure role="listitem"><img class="lightbox-trigger" data-idx="5" data-group="vista" src="vista-programmes.jpg" alt="VISTA programmes screen with active and mind programmes"><figcaption>Programmes</figcaption></figure>
+            <figure role="listitem"><img class="lightbox-trigger" data-idx="6" data-group="vista" src="vista-explore.jpg" alt="VISTA explore screen with Mind, Body, Soul bottom sheet"><figcaption>Explore</figcaption></figure>
+            <figure role="listitem"><img class="lightbox-trigger" data-idx="7" data-group="vista" src="vista-challenges.jpg" alt="VISTA challenges screen with mind, body, and soul challenges"><figcaption>Challenges</figcaption></figure>
+            <figure role="listitem"><img class="lightbox-trigger" data-idx="8" data-group="vista" src="vista-settings.jpg" alt="VISTA settings screen"><figcaption>Settings</figcaption></figure>
+          </div>
+
+          <div class="case-study">
+            <div class="case-study-block">
+              <h4>Role</h4>
+              <p>Sole Flutter developer on a cross-functional team (design + backend + mobile). Built the mobile app from scratch through to deployment.</p>
+            </div>
+            <div class="case-study-block">
+              <h4>Challenge</h4>
+              <p>Integrated the Spike API to sync real-time wearable data (Fitbit, Garmin, Google Fit, and others) into the app. Spike's Flutter SDK didn't exist yet at the time, so this required building a custom integration layer from the ground up, working directly with the Spike team to resolve a platform-level blocker along the way.</p>
+            </div>
+            <div class="case-study-block">
+              <h4>Built With</h4>
+              <p>Flutter, Bloc, Clean Architecture, Hive for local persistence, and the Spike API for wearable data sync.</p>
+            </div>
           </div>
         </article>
 
@@ -855,11 +883,11 @@
           <div class="case-study">
             <div class="case-study-block">
               <h4>Role</h4>
-              <p>Sole Flutter and Node.js developer for this project, independently handling the mobile app development and backend integration, from architecture and implementation through testing and delivery.</p>
+              <p>Solo Flutter and Node.js developer for this project within the company, working under the direct guidance of the CEO — owned both the mobile app and backend integration work.</p>
             </div>
             <div class="case-study-block">
               <h4>Challenge</h4>
-              <p>Maintaining the existing post-stream reward system was challenging because reward listings and coin/diamond balances needed to stay consistent between the Flutter app and Node.js backend. I worked on fixing issues in the existing flow, adding new reward listings, and ensuring balance updates were reflected immediately when a stream ended without requiring a manual refresh.</p>
+              <p>Designed and built a post-stream reward-claim system with real-time balance updates — syncing coin/diamond balances between the Flutter client and Node.js backend the moment a stream ended, so rewards reflected instantly without manual refresh or delay.</p>
             </div>
             <div class="case-study-block">
               <h4>Built With</h4>
