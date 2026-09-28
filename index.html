@@ -740,13 +740,16 @@
       /* ---------- PROJECTS ---------- */
       .project-grid {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         gap: 22px;
       }
       @media (min-width: 780px) {
         .project-grid {
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
+      }
+      .project-card {
+        min-width: 0;
       }
 
       .project-card.featured {
@@ -769,7 +772,24 @@
         color: var(--text-faint);
         margin-top: 8px;
       }
+      .role-line {
+        font-size: 0.88rem;
+        color: var(--text-dim);
+        margin: 2px 0 0;
+        line-height: 1.55;
+      }
+      .role-line .label {
+        display: inline-block;
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        color: var(--cyan);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin-right: 10px;
+      }
       .shot-gallery {
+        min-width: 0;
+        max-width: 100%;
         display: flex;
         gap: 14px;
         overflow-x: auto;
@@ -890,7 +910,7 @@
       }
       @media (min-width: 700px) {
         .case-study {
-          grid-template-columns: 1fr 1fr 1fr;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
         }
       }
       .case-study-block h4 {
@@ -1601,9 +1621,9 @@
                 <div class="case-study-block">
                   <h4>Role</h4>
                   <p>
-                    Solo Flutter and Node.js developer for this project within
-                    the company, working under the direct guidance of the CEO —
-                    owned both the mobile app and backend integration work.
+                    Sole Flutter and Node.js developer for this project,
+                    independently owning both the mobile app and backend
+                    integration from architecture through deployment.
                   </p>
                 </div>
                 <div class="case-study-block">
@@ -1910,12 +1930,16 @@
               </div>
             </article>
 
-            <!-- <article class="project-card">
+            <article class="project-card featured">
+              <span class="featured-badge">FEATURED CASE STUDY</span>
+              <p class="status-note">
+                Not publicly listed — UI screens shown below.
+              </p>
               <div class="classdef">
                 <span class="kw">class</span>
                 <span class="cls">Mimiya</span> extends StatefulWidget
               </div>
-              <h3>Mimiya</h3>
+              <h3>Mimiya — Maternal Health &amp; Community Support App</h3>
               <p class="desc">
                 A role-based app for maternal health and community support. On
                 first setup, users choose their role — Mother (expecting or
@@ -1924,10 +1948,6 @@
                 that role: mothers get guided wellness content and daily
                 tracking, while community members get a village-style feed for
                 checking in on and supporting the mothers around them.
-              </p>
-              <p class="role-line">
-                <span class="label">Role</span>Sole Flutter developer — owned
-                the app end-to-end, with Firebase Firestore as the backend.
               </p>
               <div class="chip-row">
                 <span class="chip">Flutter</span><span class="chip">Dart</span
@@ -2030,9 +2050,37 @@
                   <figcaption>Menu</figcaption>
                 </figure>
               </div>
-            </article> -->
 
-            <article class="project-card">
+              <div class="case-study">
+                <div class="case-study-block">
+                  <h4>Role</h4>
+                  <p>
+                    Sole Flutter developer on the project. Extended and
+                    maintained an existing Flutter app, shipping new features
+                    and refining existing modules.
+                  </p>
+                </div>
+                <div class="case-study-block">
+                  <h4>Contribution</h4>
+                  <p>
+                    Implemented and optimized push notification workflows with
+                    Firebase Cloud Messaging, streamlined the navigation flow
+                    for smoother user journeys, and improved stability through
+                    bug fixing, refactoring, and performance optimization.
+                  </p>
+                </div>
+                <div class="case-study-block">
+                  <h4>Built With</h4>
+                  <p>
+                    Flutter, Dart, GetX for state management, and Firebase
+                    (Firestore, Authentication, Cloud Storage, and Cloud
+                    Messaging).
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- <article class="project-card">
               <div class="classdef">
                 <span class="kw">class</span>
                 <span class="cls">Mimiya</span> extends StatefulWidget
@@ -2047,9 +2095,9 @@
                 <span class="chip">Flutter</span><span class="chip">Dart</span
                 ><span class="chip">Firebase</span>
               </div>
-            </article>
+            </article> -->
 
-            <article class="project-card">
+            <article class="project-card featured">
               <div class="classdef">
                 <span class="kw">class</span>
                 <span class="cls">Qualifica</span> extends StatefulWidget
@@ -2060,9 +2108,100 @@
                 Group, streamlining day-to-day scheduling and workflow tracking
                 for the team.
               </p>
+              <p class="role-line">
+                <span class="label">Role</span>Sole Flutter developer — designed
+                the app architecture with Stacked and built the responsive UI,
+                ViewModel-based state management, and navigation.
+              </p>
               <div class="chip-row">
                 <span class="chip">Flutter</span><span class="chip">Dart</span
                 ><span class="chip">Stacked</span>
+              </div>
+              <div
+                class="shot-gallery"
+                role="list"
+                aria-label="Qualifica app screens"
+              >
+                <figure role="listitem">
+                  <img
+                    class="lightbox-trigger"
+                    data-idx="0"
+                    data-group="qualifica"
+                    src="qualifica-home.jpg"
+                    alt="Qualifica home screen with All, Scheduled Appointment, To Do, and Call categories"
+                  />
+                  <figcaption>Home</figcaption>
+                </figure>
+                <figure role="listitem">
+                  <img
+                    class="lightbox-trigger"
+                    data-idx="1"
+                    data-group="qualifica"
+                    src="qualifica-all-activities.jpg"
+                    alt="Qualifica all activities list, color-coded by activity type"
+                  />
+                  <figcaption>All Activities</figcaption>
+                </figure>
+                <figure role="listitem">
+                  <img
+                    class="lightbox-trigger"
+                    data-idx="2"
+                    data-group="qualifica"
+                    src="qualifica-add-activity.jpg"
+                    alt="Qualifica add activity form with type, assignees, dates, and repeat options"
+                  />
+                  <figcaption>Add Activity</figcaption>
+                </figure>
+                <figure role="listitem">
+                  <img
+                    class="lightbox-trigger"
+                    data-idx="3"
+                    data-group="qualifica"
+                    src="qualifica-appointment-detail.jpg"
+                    alt="Qualifica scheduled appointment detail with sub-tasks and company details"
+                  />
+                  <figcaption>Appointment</figcaption>
+                </figure>
+                <figure role="listitem">
+                  <img
+                    class="lightbox-trigger"
+                    data-idx="4"
+                    data-group="qualifica"
+                    src="qualifica-register-appointment.jpg"
+                    alt="Qualifica register appointment list with search and filter"
+                  />
+                  <figcaption>Registry</figcaption>
+                </figure>
+                <figure role="listitem">
+                  <img
+                    class="lightbox-trigger"
+                    data-idx="5"
+                    data-group="qualifica"
+                    src="qualifica-service-notes.jpg"
+                    alt="Qualifica service notes step of the multi-step lead flow"
+                  />
+                  <figcaption>Service Notes</figcaption>
+                </figure>
+                <figure role="listitem">
+                  <img
+                    class="lightbox-trigger"
+                    data-idx="6"
+                    data-group="qualifica"
+                    src="qualifica-follow-up.jpg"
+                    alt="Qualifica activities and follow-up step of the lead flow"
+                  />
+                  <figcaption>Follow-Up</figcaption>
+                </figure>
+                <figure role="listitem">
+                  <img
+                    class="lightbox-trigger"
+                    data-idx="7"
+                    data-group="qualifica"
+                    src="qualifica-lead-summary.jpg"
+                    alt="Qualifica lead summary step of the lead flow"
+                  />
+                  <figcaption>Lead Summary</figcaption>
+                </figure>
               </div>
             </article>
 
