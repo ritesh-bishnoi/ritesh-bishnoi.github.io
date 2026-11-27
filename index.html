@@ -1390,7 +1390,8 @@
               <div class="chip-row">
                 <span class="chip">Dart</span
                 ><span class="chip">JavaScript</span
-                ><span class="chip">TypeScript</span><span class="chip">C</span
+                ><span class="chip">TypeScript</span><span class="chip">Kotlin</span
+                ><span class="chip">Java</span><span class="chip">C</span
                 ><span class="chip">HTML</span><span class="chip">CSS</span
                 ><span class="chip">XML</span>
               </div>
@@ -1403,7 +1404,10 @@
                 ><span class="chip">Cross-Platform</span
                 ><span class="chip">Custom Widgets</span
                 ><span class="chip">Animations</span
-                ><span class="chip">Platform Channels</span
+                ><span class="chip">Platform Channels (MethodChannel / EventChannel)</span
+                ><span class="chip">Native Android SDK Integration</span
+                ><span class="chip">Background Services</span
+                ><span class="chip">Gradle &amp; AndroidManifest.xml</span
                 ><span class="chip">Slivers</span
                 ><span class="chip">Material Design</span
                 ><span class="chip">Adaptive Layouts</span
@@ -1538,7 +1542,8 @@
                 live video and audio — watch others perform or chat about your
                 day in real time. Built to bring people together from all over
                 the world to build new friendships. Later rebranded and
-                relaunched by the client as Zuzu Live.
+                relaunched by the client as Zuzu Live, now with 100K+ downloads on
+                Google Play.
               </p>
               <div class="chip-row">
                 <span class="chip">Flutter</span><span class="chip">Dart</span
@@ -2409,29 +2414,27 @@
               <ul class="changelog">
                 <li>
                   <span class="flag added">Added</span> live-streaming and
-                  video/voice calling improvements using the ZEGO Cloud SDK,
-                  post-stream reward claims with real-time balance
-                  updates, and refined user workflows across existing
-                  applications.
-                </li>
-                <li>
-                  <span class="flag added">Added</span> backend enhancements in
-                  Node.js, integrating the RevenueCat API for subscription
-                  management, in-app purchases, WebSocket-based real-time
-                  updates, and scalable backend functionality.
+                  video/voice calling enhancements using the ZEGO Cloud SDK,
+                  post-stream reward claims with real-time balance updates,
+                  and role-based home experiences, using GetX for state
+                  management.
                 </li>
                 <li>
                   <span class="flag added">Added</span> Firebase services —
-                  Authentication, Cloud Firestore, Cloud Storage, and Cloud
-                  Messaging — for secure auth, cloud data management, media
-                  storage, and push notifications.
+                  Authentication, Cloud Firestore, Crashlytics, and Cloud
+                  Messaging — for secure auth, cloud data management, crash
+                  monitoring, and push notifications.
                 </li>
                 <li>
-                  <span class="flag improved">Improved</span> application
-                  quality by optimizing performance, refactoring existing
-                  modules, resolving production issues, enhancing navigation,
-                  and managing state with GetX for smooth, stable,
-                  production-ready releases.
+                  <span class="flag added">Added</span> backend enhancements in
+                  Node.js, integrating the RevenueCat API for subscriptions and
+                  in-app purchases, with WebSocket-based real-time updates.
+                </li>
+                <li>
+                  <span class="flag improved">Improved</span> stability by
+                  resolving production issues, refactoring legacy modules, and
+                  enhancing navigation, while estimating, developing, and
+                  testing features end-to-end for stable releases.
                 </li>
               </ul>
             </div>
@@ -2456,6 +2459,13 @@
                   from Figma designs, reusable components, optimized
                   API/database interactions, and media handling (image/video
                   upload, caching, playback).
+                </li>
+                <li>
+                  <span class="flag added">Added</span> native Android
+                  integrations — custom Flutter Platform Channels
+                  (MethodChannel / EventChannel) in Kotlin/Java for native SDKs
+                  and background services, with Gradle, permissions, and
+                  AndroidManifest.xml configured for hardware/SDK integrations.
                 </li>
                 <li>
                   <span class="flag added">Added</span> Node.js backend
